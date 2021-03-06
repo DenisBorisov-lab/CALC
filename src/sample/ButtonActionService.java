@@ -27,7 +27,7 @@ public class ButtonActionService {
                         backstage.setLength(0);
                         result.setText("Ошибка!");
                     }else {
-                        if (backstage.length() <= 1 && value.equals("0")){
+                        if (backstage.length() < 1 && value.equals("0")){
                             result.setText("0");
                         }else {
                             backstage.append(value);
