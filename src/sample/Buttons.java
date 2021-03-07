@@ -22,9 +22,13 @@ public enum Buttons {
     SQUARE("x²"),
     CLEAR("AC");
     private String code;
-    Buttons(String code){
+
+    Buttons(String code) {
         this.code = code;
     }
-    public String getCode(){return code;}
+
+    public String getCode() {
+        return code;
+    }
 
 }
