@@ -42,7 +42,7 @@ public class ButtonCreation {
         result = new Label("0");
         GridPane.setHalignment(result, HPos.RIGHT);
         GridPane.setValignment(result, VPos.CENTER);
-        root.add(result, 0, 0, 4, 1);
+        root.add(result, 0, 0, 5, 1);
 
         buttonActionService = new ButtonActionService();
         nol = buttonCreate(Buttons.ZERO.getCode(), 1, 5, root);

@@ -21,6 +21,7 @@ public enum Buttons {
     PERCENT("%"),
     SQUARE("x²"),
     CLEAR("AC");
+
     private String code;
 
     Buttons(String code) {

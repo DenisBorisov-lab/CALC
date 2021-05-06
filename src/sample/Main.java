@@ -27,6 +27,7 @@ public class Main extends Application {
         stage.setTitle("Calculator");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("imgicon.png")));
         stage.show();
+        //root.setGridLinesVisible(true);
         fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(30));
         root.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString()));
     }
