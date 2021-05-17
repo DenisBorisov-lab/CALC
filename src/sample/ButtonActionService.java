@@ -32,7 +32,7 @@ public class ButtonActionService {
                     result.setText("0");
                     backstage.setLength(0);
                 } else if (Arrays.asList(worksheet).contains(value)) {
-                    worksheets(result, special, value);
+                    worksheets(result, value);
                 } else if (value.equals("=")) {
                     calculations(result, special);
                 } else if (value.equals(Buttons.SQUARE.getCode())) {
@@ -50,7 +50,7 @@ public class ButtonActionService {
             @Override
             public void handle(KeyEvent event) {
                 if (Arrays.asList(worksheet).contains(event.getText())) {
-                    worksheets(result, special, event.getText());
+                    worksheets(result, event.getText());
                 } else if (event.getCode() == KeyCode.ENTER) {
                     calculations(result, special);
                 } else if (event.getCode() == KeyCode.BACK_SPACE && !result.getText().equals("Ошибка!") && !result.getText().equals("Infinity")) {
@@ -62,7 +62,7 @@ public class ButtonActionService {
                     }
 
                 } else if (event.getCode() == KeyCode.EQUALS) {
-                    worksheets(result, special, "+");
+                    worksheets(result, "+");
                 } else if (event.getCode() == KeyCode.DELETE) {
                     result.setText("0");
                     backstage.setLength(0);
@@ -95,7 +95,7 @@ public class ButtonActionService {
             return returning;
         } else {
             BigDecimal answer;
-            answer = one.divide(two);
+            answer = one.divide(two, 5, BigDecimal.ROUND_HALF_EVEN);
             returning = answer.toString();
             return returning;
         }
@@ -121,10 +121,9 @@ public class ButtonActionService {
 
     /**
      * @param result
-     * @param special
      * @param value
      */
-    public void worksheets(Label result, String[] special, String value) {
+    public void worksheets(Label result, String value) {
         if (backstage.length() >= 2 && Arrays.asList(special).contains(backstage.substring(backstage.length() - 1, backstage.length())) && Arrays.asList(special).contains(value)) {
             backstage.setLength(0);
             result.setText("Ошибка!");
@@ -215,52 +214,52 @@ public class ButtonActionService {
         switch (event.getCode()) {
             case END:
                 number = "1";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case INSERT:
                 number = "0";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case DOWN:
                 number = "2";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case PAGE_DOWN:
                 number = "3";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case LEFT:
                 number = "4";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case CLEAR:
                 number = "5";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case RIGHT:
                 number = "6";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case HOME:
                 number = "7";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case UP:
                 number = "8";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case PAGE_UP:
                 number = "9";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case MULTIPLY:
                 number = "×";
-                worksheets(result, special, number);
+                worksheets(result, number);
                 break;
             case DIVIDE:
             case SLASH:
                 number = "÷";
-                worksheets(result, special, number);
+                worksheets(result,  number);
                 break;
             default:
                 break;
