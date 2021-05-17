@@ -18,7 +18,7 @@ public enum Buttons {
     MINUS("-"),
     MULTIPLY("×"),
     DIVISION("÷"),
-    PERCENT("%"),
+    ROOT("√"),
     SQUARE("x²"),
     CLEAR("AC");
 

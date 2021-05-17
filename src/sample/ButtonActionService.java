@@ -5,20 +5,26 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 
 public class ButtonActionService {
 
     private StringBuilder backstage = new StringBuilder();
+    String[] worksheet = "0123456789+-×÷".split("");
+    String[] special = "+-×÷".split("");
 
     public void visibleActioning(Button button, Label result, String value) {
         backstage = new StringBuilder();//clear
 
+
+
         button.setOnAction(new EventHandler<ActionEvent>() {
-            String[] worksheet = "0123456789+-×÷".split("");
-            String[] special = "+-×÷".split("");
+
 
             @Override
             public void handle(ActionEvent event) {
@@ -33,35 +39,64 @@ public class ButtonActionService {
                     squareLogic(result);
                 } else if (value.equals(Buttons.POINT.getCode())) {
                     pointDecision(result);
-                } else if (value.equals(Buttons.PERCENT.getCode())) {
-                    percentLogic(result);
+                } else if (value.equals(Buttons.ROOT.getCode())) {
+                    rootLogic(result);
                 } else if (value.equals(Buttons.PM.getCode())) {
                     pmLogic(result);
                 }
             }
         });
+        button.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (Arrays.asList(worksheet).contains(event.getText())) {
+                    worksheets(result, special, event.getText());
+                } else if (event.getCode() == KeyCode.ENTER) {
+                    calculations(result, special);
+                } else if (event.getCode() == KeyCode.BACK_SPACE && !result.getText().equals("Ошибка!") && !result.getText().equals("Infinity")) {
+                    try {
+                        result.setText(result.getText().substring(0, result.getText().length() - 1));
+                        backstage = new StringBuilder(result.getText());
+                    } catch (Exception exception) {
+                        System.out.println("больше нечего удалять!");
+                    }
+
+                } else if (event.getCode() == KeyCode.EQUALS) {
+                    worksheets(result, special, "+");
+                } else if (event.getCode() == KeyCode.DELETE) {
+                    result.setText("0");
+                    backstage.setLength(0);
+                } else if (event.getCode() == KeyCode.COMMA) {
+                    pointDecision(result);
+                }
+                numPadVersion(event, result);
+                System.out.println(event.getCode());
+                System.out.println(event.getText());
+
+            }
+        });
     }
 
     public String logic(String firstNumber, String secondNumber, String symbol) {
-        Double one = Double.parseDouble(firstNumber);
-        Double two = Double.parseDouble(secondNumber);
+        BigDecimal one = new BigDecimal(firstNumber);
+        BigDecimal two = new BigDecimal(secondNumber);
         String returning;
         if (symbol.equals(Buttons.PLUS.getCode())) {
-            one = one + two;
-            returning = Double.toString(one);
+            one = one.add(two);
+            returning = one.toString();
             return returning;
         } else if (symbol.equals(Buttons.MINUS.getCode())) {
-            one = one - two;
-            returning = Double.toString(one);
+            one = one.subtract(two);
+            returning = one.toString();
             return returning;
         } else if (symbol.equals(Buttons.MULTIPLY.getCode())) {
-            one = one * two;
-            returning = Double.toString(one);
+            one = one.multiply(two);
+            returning = one.toString();
             return returning;
         } else {
-            double answer;
-            answer = one / two;
-            returning = Double.toString(answer);
+            BigDecimal answer;
+            answer = one.divide(two);
+            returning = answer.toString();
             return returning;
         }
     }
@@ -79,6 +114,8 @@ public class ButtonActionService {
         } else {
             backstage.insert(0, Buttons.MINUS.getCode());
         }
+
+
         result.setText(backstage.toString());
     }
 
@@ -143,10 +180,10 @@ public class ButtonActionService {
         }
     }
 
-    public void percentLogic(Label result) {
+    public void rootLogic(Label result) {
         try {
-            Double answer = new Double(backstage.toString());
-            answer = answer * 0.01;
+            BigDecimal answer = new BigDecimal(backstage.toString());
+            answer = BigDecimal.valueOf(Math.sqrt(answer.doubleValue()));
             backstage = new StringBuilder(answer.toString());
             bugCorrection(result);
         } catch (Exception e) {
@@ -171,5 +208,62 @@ public class ButtonActionService {
             backstage.append(".");
         }
         result.setText(backstage.toString());
+    }
+
+    public void numPadVersion(KeyEvent event, Label result) {
+        String number = "";
+        switch (event.getCode()) {
+            case END:
+                number = "1";
+                worksheets(result, special, number);
+                break;
+            case INSERT:
+                number = "0";
+                worksheets(result, special, number);
+                break;
+            case DOWN:
+                number = "2";
+                worksheets(result, special, number);
+                break;
+            case PAGE_DOWN:
+                number = "3";
+                worksheets(result, special, number);
+                break;
+            case LEFT:
+                number = "4";
+                worksheets(result, special, number);
+                break;
+            case CLEAR:
+                number = "5";
+                worksheets(result, special, number);
+                break;
+            case RIGHT:
+                number = "6";
+                worksheets(result, special, number);
+                break;
+            case HOME:
+                number = "7";
+                worksheets(result, special, number);
+                break;
+            case UP:
+                number = "8";
+                worksheets(result, special, number);
+                break;
+            case PAGE_UP:
+                number = "9";
+                worksheets(result, special, number);
+                break;
+            case MULTIPLY:
+                number = "×";
+                worksheets(result, special, number);
+                break;
+            case DIVIDE:
+            case SLASH:
+                number = "÷";
+                worksheets(result, special, number);
+                break;
+            default:
+                break;
+        }
     }
 }

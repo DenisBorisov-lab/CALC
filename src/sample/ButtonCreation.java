@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 
 public class ButtonCreation {
     private Button nol;
-    private Button one;
+    public static Button one;
     private Button two;
     private Button three;
     private Button four;
@@ -24,7 +24,7 @@ public class ButtonCreation {
     private Button minus;
     private Button multiply;
     private Button division;
-    private Button percent;
+    private Button roots;
     private Button square;
     private Button clear;
     private Label result;
@@ -79,8 +79,8 @@ public class ButtonCreation {
         buttonActionService.visibleActioning(multiply, result, Buttons.MULTIPLY.getCode());
         division = buttonCreate(Buttons.DIVISION.getCode(), 3, 1, root);
         buttonActionService.visibleActioning(division, result, Buttons.DIVISION.getCode());
-        percent = buttonCreate(Buttons.PERCENT.getCode(), 2, 1, root);
-        buttonActionService.visibleActioning(percent, result, Buttons.PERCENT.getCode());
+        roots = buttonCreate(Buttons.ROOT.getCode(), 2, 1, root);
+        buttonActionService.visibleActioning(roots, result, Buttons.ROOT.getCode());
         square = buttonCreate(Buttons.SQUARE.getCode(), 1, 1, root);
         buttonActionService.visibleActioning(square, result, Buttons.SQUARE.getCode());
         clear = buttonCreate(Buttons.CLEAR.getCode(), 0, 1, root);

@@ -16,7 +16,7 @@ public class Main extends Application {
     private final DoubleProperty fontSize = new SimpleDoubleProperty(10);
 
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception {
         GridPane root = new GridPane();
         Components.createColumn(root);
         Components.createRows(root);
@@ -31,6 +31,32 @@ public class Main extends Application {
         fontSize.bind(scene.widthProperty().add(scene.heightProperty()).divide(30));
         root.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString()));
     }
-    
-    public static void main(String[] args) { launch(args); }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
+//@Override
+//public void start(Stage primaryStage) throws Exception {
+//    BorderPane pane = new BorderPane();
+//    Button button = new Button("Press Me!");
+//    pane.setCenter(button);
+//    Scene scene = new Scene(pane, 200, 200);
+//    primaryStage.setScene(scene);
+//    primaryStage.show();
+//
+//    button.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//
+//        @Override
+//        public void handle(KeyEvent event) {
+//            if (event.getCode() == KeyCode.ENTER) {
+//                System.out.println("Enter Pressed");
+//            }
+//        }
+//    });
+//}
+//
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
+//}
