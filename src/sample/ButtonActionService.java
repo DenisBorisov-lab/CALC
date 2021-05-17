@@ -1,8 +1,6 @@
 package sample;
 
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -22,58 +20,49 @@ public class ButtonActionService {
         backstage = new StringBuilder();//clear
 
 
-
-        button.setOnAction(new EventHandler<ActionEvent>() {
-
-
-            @Override
-            public void handle(ActionEvent event) {
-                if (value.equals("AC")) {
-                    result.setText("0");
-                    backstage.setLength(0);
-                } else if (Arrays.asList(worksheet).contains(value)) {
-                    worksheets(result, value);
-                } else if (value.equals("=")) {
-                    calculations(result, special);
-                } else if (value.equals(Buttons.SQUARE.getCode())) {
-                    squareLogic(result);
-                } else if (value.equals(Buttons.POINT.getCode())) {
-                    pointDecision(result);
-                } else if (value.equals(Buttons.ROOT.getCode())) {
-                    rootLogic(result);
-                } else if (value.equals(Buttons.PM.getCode())) {
-                    pmLogic(result);
-                }
+        button.setOnAction(event -> {
+            if (value.equals("AC")) {
+                result.setText("0");
+                backstage.setLength(0);
+            } else if (Arrays.asList(worksheet).contains(value)) {
+                worksheets(result, value);
+            } else if (value.equals("=")) {
+                calculations(result, special);
+            } else if (value.equals(Buttons.SQUARE.getCode())) {
+                squareLogic(result);
+            } else if (value.equals(Buttons.POINT.getCode())) {
+                pointDecision(result);
+            } else if (value.equals(Buttons.ROOT.getCode())) {
+                rootLogic(result);
+            } else if (value.equals(Buttons.PM.getCode())) {
+                pmLogic(result);
             }
         });
-        button.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (Arrays.asList(worksheet).contains(event.getText())) {
-                    worksheets(result, event.getText());
-                } else if (event.getCode() == KeyCode.ENTER) {
-                    calculations(result, special);
-                } else if (event.getCode() == KeyCode.BACK_SPACE && !result.getText().equals("Ошибка!") && !result.getText().equals("Infinity")) {
-                    try {
-                        result.setText(result.getText().substring(0, result.getText().length() - 1));
-                        backstage = new StringBuilder(result.getText());
-                    } catch (Exception exception) {
-                        System.out.println("больше нечего удалять!");
-                    }
-
-                } else if (event.getCode() == KeyCode.EQUALS) {
-                    worksheets(result, "+");
-                } else if (event.getCode() == KeyCode.DELETE) {
-                    result.setText("0");
-                    backstage.setLength(0);
-                } else if (event.getCode() == KeyCode.COMMA) {
-                    pointDecision(result);
+        button.setOnKeyPressed(event -> {
+            if (Arrays.asList(worksheet).contains(event.getText())) {
+                worksheets(result, event.getText());
+            } else if (event.getCode() == KeyCode.ENTER) {
+                calculations(result, special);
+            } else if (event.getCode() == KeyCode.BACK_SPACE && !result.getText().equals("Ошибка!") && !result.getText().equals("Infinity")) {
+                try {
+                    result.setText(result.getText().substring(0, result.getText().length() - 1));
+                    backstage = new StringBuilder(result.getText());
+                } catch (Exception exception) {
+                    System.out.println("больше нечего удалять!");
                 }
-                numPadVersion(event, result);
-                System.out.println(event.getCode());
-                System.out.println(event.getText());
 
+            } else if (event.getCode() == KeyCode.EQUALS) {
+                worksheets(result, "+");
+            } else if (event.getCode() == KeyCode.DELETE) {
+                result.setText("0");
+                backstage.setLength(0);
+            } else if (event.getCode() == KeyCode.COMMA) {
+                pointDecision(result);
             }
+            numPadVersion(event, result);
+            System.out.println(event.getCode());
+            System.out.println(event.getText());
+
         });
     }
 
@@ -210,7 +199,7 @@ public class ButtonActionService {
     }
 
     public void numPadVersion(KeyEvent event, Label result) {
-        String number = "";
+        String number;
         switch (event.getCode()) {
             case END:
                 number = "1";
@@ -259,7 +248,7 @@ public class ButtonActionService {
             case DIVIDE:
             case SLASH:
                 number = "÷";
-                worksheets(result,  number);
+                worksheets(result, number);
                 break;
             default:
                 break;

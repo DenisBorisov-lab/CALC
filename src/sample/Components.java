@@ -6,7 +6,7 @@ import javafx.scene.layout.RowConstraints;
 
 public class Components {
 
-    public static void createRows(GridPane root){
+    public static void createRows(GridPane root) {
         RowConstraints row1 = new RowConstraints();
         row1.setPercentHeight(16.7);
         root.getRowConstraints().add(row1);
@@ -27,7 +27,7 @@ public class Components {
         root.getRowConstraints().add(row6);
     }
 
-    public static void createColumn(GridPane root){
+    public static void createColumn(GridPane root) {
         ColumnConstraints column1 = new ColumnConstraints();
         column1.setPercentWidth(25);
         root.getColumnConstraints().add(column1);

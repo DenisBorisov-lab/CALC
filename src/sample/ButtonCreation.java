@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 
 public class ButtonCreation {
     private Button nol;
-    public static Button one;
+    private Button one;
     private Button two;
     private Button three;
     private Button four;
@@ -21,16 +21,16 @@ public class ButtonCreation {
     private Button pm;
     private Button equal;
     private Button plus;
-    private Button minus;
     private Button multiply;
     private Button division;
     private Button roots;
     private Button square;
     private Button clear;
+    private Button minus;
     private Label result;
     private ButtonActionService buttonActionService;
 
-    public Button buttonCreate(String name, int x, int y, GridPane root){
+    public Button buttonCreate(String name, int x, int y, GridPane root) {
         Button button = new Button(name);
         root.add(button, x, y);
         button.setMaxWidth(Double.MAX_VALUE);
@@ -38,7 +38,7 @@ public class ButtonCreation {
         return button;
     }
 
-    public void createComponent(GridPane root){
+    public void createComponent(GridPane root) {
         result = new Label("0");
         GridPane.setHalignment(result, HPos.RIGHT);
         GridPane.setValignment(result, VPos.CENTER);
